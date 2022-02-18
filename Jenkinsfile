@@ -12,7 +12,7 @@ pipeline {
         REPOSITORY_URL = "https://github.com/buxiaomo/pki-server.git"
 
         REGISTRY_AUTH = "harbor"
-        REGISTRY_HOST = "harbor.xiaomo.io"
+        REGISTRY_HOST = "harbor.nuomitech.cn"
         REGISTRY_REPO = "platform"
     }
 
