@@ -8,7 +8,8 @@ COPY . /go/src/app/
 RUN CGO_ENABLED=1 GO111MODULE=on GOOS=linux go build -o main main.go
 
 FROM alpine:3.12.0
-RUN adduser -D -h /app -u 1000 app
+RUN apk upgrade --no-cache \
+    && adduser -D -h /app -u 1000 app
 WORKDIR /app
 COPY --from=builder /go/src/app/main ./main
 EXPOSE 8080
