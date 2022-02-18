@@ -57,7 +57,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'harbor', passwordVariable: 'password', usernameVariable: 'username')]) {
-                        sh label: 'add repo', script: "helm repo add --username $username --password $password platform https://harbor.xiaomo.io/chartrepo/platform"
+                        sh label: 'add repo', script: "helm repo add --username $username --password $password platform https://${env.REGISTRY_HOST}/chartrepo/platform"
                         sh label: 'install chart', script: "helm upgrade -i ${env.APPLICATION_NAME} --username $username --password $password --version 0.1.0 platform/plaform -n ${env.PROJECT_NAME}-${env.PROJECT_ENV} --set readinessPath='/v1/pki/healthz' --set Image=${env.REGISTRY_HOST}/${env.REGISTRY_REPO}/${env.APPLICATION_NAME}:${BUILD_ID} --set Project=${env.PROJECT_NAME} --set Env=${env.PROJECT_ENV} --set Replicas=${env.APPLICATION_REPLICAS} --set Port=8080"
                     }
                 }
